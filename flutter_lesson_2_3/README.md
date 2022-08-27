@@ -120,7 +120,7 @@ mainAxisAlignment: MainAxisAlignment.center,
 ```
 
 
-![center](https://note.youdao.com/yws/public/resource/4f710f10111909ea20a3c01f44d3d88b/FF893B6E5C6F41699F4278E0FCDE6655?ynotemdtimestamp=1661618640987)
+![center](https://note.youdao.com/yws/public/resource/4f710f10111909ea20a3c01f44d3d88b/E6BA8893F2E347A19A891FA1DB4DF6BC?ynotemdtimestamp=1661618865748)
 
 ##### 1.2 属性MainAxisAlignment.end示例
 
@@ -128,7 +128,7 @@ mainAxisAlignment: MainAxisAlignment.center,
 mainAxisAlignment: MainAxisAlignment.end,
 ```
 
-![end](FF893B6E5C6F41699F4278E0FCDE6655)
+![end](https://note.youdao.com/yws/public/resource/4f710f10111909ea20a3c01f44d3d88b/FF893B6E5C6F41699F4278E0FCDE6655?ynotemdtimestamp=1661618865748)
 
 ##### 1.3 属性MainAxisAlignment.spaceAround示例
 
@@ -136,7 +136,7 @@ mainAxisAlignment: MainAxisAlignment.end,
 mainAxisAlignment: MainAxisAlignment.spaceAround,
 ```
 
-![spaceAround](23F30249BC194A1A8AB73C114103736E)
+![spaceAround](https://note.youdao.com/yws/public/resource/4f710f10111909ea20a3c01f44d3d88b/23F30249BC194A1A8AB73C114103736E?ynotemdtimestamp=1661618865748)
 
 ##### 1.4 属性MainAxisAlignment.spaceBetween示例
 
@@ -144,7 +144,7 @@ mainAxisAlignment: MainAxisAlignment.spaceAround,
 mainAxisAlignment: MainAxisAlignment.spaceBetween,
 ```
 
-![spaceBetween](0C55696AF1754B4294C4B51290F12172)
+![spaceBetween](https://note.youdao.com/yws/public/resource/4f710f10111909ea20a3c01f44d3d88b/0C55696AF1754B4294C4B51290F12172?ynotemdtimestamp=1661618865748)
 
 ##### 1.5 属性MainAxisAlignment.spaceEvenly示例
 
@@ -152,7 +152,7 @@ mainAxisAlignment: MainAxisAlignment.spaceBetween,
 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
 ```
 
-![spaceEvenly](639A112DA935483189DD8A8FBA4F9FD0)
+![spaceEvenly](https://note.youdao.com/yws/public/resource/4f710f10111909ea20a3c01f44d3d88b/639A112DA935483189DD8A8FBA4F9FD0?ynotemdtimestamp=1661618865748)
 
 
 
@@ -201,7 +201,7 @@ children: [
 crossAxisAlignment: CrossAxisAlignment.start,
 ```
 
-![start](20EE7DB81E5440B7A582AF0AADFB12EB)
+![start](https://note.youdao.com/yws/public/resource/4f710f10111909ea20a3c01f44d3d88b/20EE7DB81E5440B7A582AF0AADFB12EB?ynotemdtimestamp=1661618865748)
 
 ##### 2.2 属性CrossAxisAlignment.end示例
 
@@ -209,7 +209,7 @@ crossAxisAlignment: CrossAxisAlignment.start,
 crossAxisAlignment: CrossAxisAlignment.end,
 ```
 
-![end](B096D69B51CF4DB798DC6D94B6652E97)
+![end](https://note.youdao.com/yws/public/resource/4f710f10111909ea20a3c01f44d3d88b/B096D69B51CF4DB798DC6D94B6652E97?ynotemdtimestamp=1661618865748)
 
 ##### 2.3 属性CrossAxisAlignment.center示例
 
@@ -217,7 +217,7 @@ crossAxisAlignment: CrossAxisAlignment.end,
 crossAxisAlignment: CrossAxisAlignment.center,
 ```
 
-![center](140F864DF70740D58BBBF55FF2C23FE8)
+![center](https://note.youdao.com/yws/public/resource/4f710f10111909ea20a3c01f44d3d88b/140F864DF70740D58BBBF55FF2C23FE8?ynotemdtimestamp=1661618865748)
 
 ##### 2.4 属性CrossAxisAlignment.stretch示例
 
@@ -225,7 +225,7 @@ crossAxisAlignment: CrossAxisAlignment.center,
 crossAxisAlignment: CrossAxisAlignment.stretch,
 ```
 
-![stretch](C67AF730A009431F95C7BB36118C53AA)
+![stretch](https://note.youdao.com/yws/public/resource/4f710f10111909ea20a3c01f44d3d88b/C67AF730A009431F95C7BB36118C53AA?ynotemdtimestamp=1661618865748)
 
 - ### Flutter Expanded 平均分布控件
 
@@ -277,7 +277,7 @@ class MyApp extends StatelessWidget {
 
 ```
 
-![expanded](E5E471FB074C4BA1928266819A1E1738)
+![expanded](https://note.youdao.com/yws/public/resource/4f710f10111909ea20a3c01f44d3d88b/E5E471FB074C4BA1928266819A1E1738?ynotemdtimestamp=1661618865748)
 
 - ### Flutter Column 垂直布局组件
 
@@ -344,7 +344,7 @@ class MyApp extends StatelessWidget {
 }
 
 ```
-![column](B4537759D75A40ECB081877FFAB17498)
+![column](https://note.youdao.com/yws/public/resource/4f710f10111909ea20a3c01f44d3d88b/B4537759D75A40ECB081877FFAB17498?ynotemdtimestamp=1661618865748)
 
 
 
