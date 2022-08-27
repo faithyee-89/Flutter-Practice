@@ -120,7 +120,7 @@ mainAxisAlignment: MainAxisAlignment.center,
 ```
 
 
-![center](https://note.youdao.com/yws/public/resource/4f710f10111909ea20a3c01f44d3d88b/E6BA8893F2E347A19A891FA1DB4DF6BC?ynotemdtimestamp=1661595060325)
+![center](https://note.youdao.com/yws/public/resource/4f710f10111909ea20a3c01f44d3d88b/FF893B6E5C6F41699F4278E0FCDE6655?ynotemdtimestamp=1661618640987)
 
 ##### 1.2 属性MainAxisAlignment.end示例
 
