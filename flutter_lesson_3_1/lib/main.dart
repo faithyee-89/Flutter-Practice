@@ -26,7 +26,7 @@ class HomePage extends StatelessWidget {
             onPressed: (() {
               // 静态路由跳转方式
               Navigator.of(context).pushNamed('/page1', arguments: '我是主页面的值')
-              .then((value) => print(value));//接受从子页面返回的值
+              .then((value) => print(value));//接受从子页面返回的值（静态动态路由都可以用这种方式）
             }),
             color: Colors.blue,
             child: Text('跳到页面1'),
