@@ -5,6 +5,31 @@
 
 ![网络请求2](https://note.youdao.com/yws/public/resource/53fc68c0d47cc9c99eb7e3450f9ffc6b/BD95BD668D8644B68330DA8D94F5BD01?ynotemdtimestamp=1662128526664)
 
+#### 临时接口配置
+
+登录接口模拟网页：[https://getman.cn/mock/](https://getman.cn/mock/)，在默认的url后填写接口后缀名为users，body内容如下：
+
+
+```
+[
+ {
+
+  "name":"张三",
+  "imageUrl":"http://thirdwx.qlogo.cn/mmopen/zvr5lK0hdBictkib9JYJpVYswGlqwjuedWI7RGneAcBHibpxdX813A0Lf7YJQbRhlA3arlfVNM80OKZ5iaZDdTRCjIAibryU9DEYz/132",
+  "indexLetter":"Z",
+  "imageAssets":""
+ },
+
+ {
+
+  "name":"李四",
+  "imageUrl":"http://thirdwx.qlogo.cn/mmopen/zvr5lK0hdBictkib9JYJpVYswGlqwjuedWI7RGneAcBHibpxdX813A0Lf7YJQbRhlA3arlfVNM80OKZ5iaZDdTRCjIAibryU9DEYz/132",
+  "indexLetter":"L",
+  "imageAssets":""
+ }
+]
+```
+
 
 #### 代码及UI示例
 
