@@ -105,6 +105,7 @@ class _FriendsPageState extends State<FriendsPage> {
             color: Colors.black,
           ),
         ),
+        centerTitle: true,
       ),
       body: Stack(
         children: [
