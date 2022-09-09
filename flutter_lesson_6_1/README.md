@@ -198,3 +198,46 @@ void initialize() {
   Routes.configRoutes(Application.router);
 }
 ```
+
+> ### 课程目标
+> - 设计模式的选择
+
+#### 为什么需要设计模式
+
+项目初期
+
+![为什么需要设计模式](https://note.youdao.com/yws/public/resource/ba41d106aee84f0626d0874f7d04ca0a/7973ABFB69174D74892F7F572A9D2CEE?ynotemdtimestamp=1662741817152)
+
+项目后期
+
+![为什么需要设计模式2](https://note.youdao.com/yws/public/resource/ba41d106aee84f0626d0874f7d04ca0a/86F5A44312FE47268748BED9F78A774C?ynotemdtimestamp=1662741817152)
+
+#### flutter中常见的设计模式
+
+- MVX
+    - MVC
+    - MVP
+    - MVVM
+    - etc.
+- Redux
+    - flutter_redux
+    - 来源于前端的Redux框架
+
+![flutter设计模式3](https://note.youdao.com/yws/public/resource/ba41d106aee84f0626d0874f7d04ca0a/C1E496B1CA3445C489C16F5434ED86B1?ynotemdtimestamp=1662741817152)
+
+- BloC
+    - Google官方推荐
+    - 能局部 能全局
+
+![flutter设计模式4](https://note.youdao.com/yws/public/resource/ba41d106aee84f0626d0874f7d04ca0a/D43CE4826E4145BD89934B530B0D0584?ynotemdtimestamp=1662741817152)
+
+- etc.
+
+
+
+#### 如何选择
+
+- flutter的设计模式为了解决状态的管理
+- MVX最终采用的都是Flutter自带的setState方式
+- BloC & Redux 都是拥有一套自己的状态管理方式
+- BloC 局部的状态管理，当然全局的能看做是局部
