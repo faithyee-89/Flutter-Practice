@@ -99,3 +99,102 @@ class CNWNetManager {
 }
 
 ```
+
+> ### 课程目标
+> - 路由组件引用
+> - 路由框架封装
+
+#### 路由组件引用
+
+
+```
+dependencies:
+  flutter:
+    sdk: flutter
+
+
+  # The following adds the Cupertino Icons font to your application.
+  # Use with the CupertinoIcons class for iOS style icons.
+  cupertino_icons: ^1.0.2
+  dio: ^3.0.10
+  # 路由组件
+  fluro: ^1.7.8
+```
+
+
+#### 路由框架封装
+
+router_handlers.dart
+
+
+```
+import 'package:fluro/fluro.dart';
+import 'package:flutter/material.dart';
+
+Handler emptyHandler = Handler(
+    handlerFunc: (BuildContext context, Map<String, List<String>> parameters) {
+  return Container();
+});
+```
+
+routes.dart
+
+
+```
+
+import 'package:flutter_lesson_6_1/router/route_handlers.dart';
+import 'package:fluro/fluro.dart';
+
+class Routes {
+  static String home = "/";
+  static String login = "/login";
+
+  static void configRoutes(FluroRouter router) {
+    router.notFoundHandler = emptyHandler;
+  }
+}
+```
+
+
+
+#### 路由框架使用
+
+application.dart
+
+
+```
+import 'package:fluro/fluro.dart';
+
+class Application {
+  // 全局路由
+  static final FluroRouter router = FluroRouter();
+}
+```
+
+main.dart
+
+
+```
+import 'package:flutter/material.dart';
+import 'package:flutter_lesson_6_1/router/routes.dart';
+
+import 'common/application.dart';
+
+void main() {
+
+  // 初始化
+  initialize();
+
+  runApp(const MaterialApp(
+    home: Scaffold(
+      
+    ),
+  ));
+}
+
+/// 初始化
+void initialize() {
+  // 初始化 路由
+  Routes.configRoutes(Application.router);
+}
+```
