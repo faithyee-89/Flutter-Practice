@@ -26,6 +26,7 @@ class _WechatFriendcirclePageState extends State<WechatFriendCirclePage> {
   UserModel? _userModel;
 
   /// 读取本地数据
+  /// 该方法为异步方法
   Future<String> loadAsset() async {
     return await rootBundle
         .loadString('lib/wechat_asset/Data.json');
@@ -34,6 +35,8 @@ class _WechatFriendcirclePageState extends State<WechatFriendCirclePage> {
   @override
   void initState() {
     super.initState();
+    /// 调用读取本地json数据方法
+    /// 异步方法可以用.then获取方法执行完的返回结果
     loadAsset().then((value) {
       setState(() {
         _userModel = UserModel.fromJson(jsonDecode(value));
