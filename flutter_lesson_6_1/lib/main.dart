@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_lesson_6_1/router/routes.dart';
 
+import 'App.dart';
+import 'business/authentication/authentication_repository/authentication_repository.dart';
+import 'business/user/user_repository/user_repository.dart';
 import 'common/application.dart';
-
 void main() {
 
   // 初始化
   initialize();
 
-  runApp(const MaterialApp(
-    home: Scaffold(
-      
-    ),
+  runApp(App(
+    authenticationRepository: AuthenticationRepository(),
+    userRepository: UserRepository(),
   ));
 }
 
