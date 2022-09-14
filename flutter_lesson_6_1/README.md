@@ -593,6 +593,52 @@ onPressed: state.status.isValidated
 ```
 
 
+使用home_page.dart中的关键代码来分析Bloc设计模式：
+
+
+```dart
+ @override
+  Widget build(BuildContext context) {
+    return BlocProvider(
+      create: (_) => TabCubit(),
+      child: Scaffold(
+        // appBar: AppBar(title: const Text('Home')),
+        bottomNavigationBar:
+            BlocBuilder<TabCubit, int>(builder: (context, state) {
+          return CupertinoTabBar(
+            items: bottomNavItems,
+            currentIndex: state,
+            activeColor: Color(0xffFC9900),
+            inactiveColor: Color(0xff606266),
+            onTap: (index) => _onTabChanged(context, index),
+          );
+        }),
+        body: BlocBuilder<TabCubit, int>(builder: (context, state) {
+          return pages[state];
+        }),
+      ),
+    );
+  }
+
+  void _onTabChanged(BuildContext context, int index) {
+    context.read<TabCubit>().update(index);
+  }
+```
+以上代码中，首先在build回调中，使用了bloc的provider，provider中提供了create回调，用来管理bloc组件TabCubit，回调中传入了创建的Cubit之后，在点击事件onTabChanged就可以获取到provider中创建的TabCubit
+
+
+```dart
+ context.read<TabCubit>().update(index);
+```
+而状态最后会通过BlocBuilder中流转回来
+
+
+```dart
+body: BlocBuilder<TabCubit, int>(builder: (context, state) {
+          return pages[state];
+        }),
+```
+
 
 
 
