@@ -1,37 +1,22 @@
+import 'package:cainiaowo/common/application.dart';
+import 'package:cainiaowo/router/routes.dart';
 import 'package:flutter/material.dart';
+import 'package:cainiaowo/app.dart';
+import 'package:cainiaowo/business/authentication/authentication.dart';
+import 'package:cainiaowo/business/user/user.dart';
 
 void main() {
-  print("a");
-  String? aaa;
-  int? bbb;
-  double ccc;
-  Map<dynamic, dynamic> mmmm;
-  bool? bol;
+  // 初始化
+  initialize();
 
-  String? _testFun(String? aaa) {
-    return aaa;
-  }
-
-  runApp(MaterialApp(
-    home: Scaffold(
-      body: SafeArea(
-        child: Column(children: [
-          Text(
-            "data ${bol! == true ? "true" : "false!"}",
-            style: TextStyle(
-              color: Colors.black,
-              fontSize: 32,
-            ),
-          ), 
-          Text(
-            "data ${aaa}",
-            style: TextStyle(
-              color: Colors.black,
-              fontSize: 32,
-            ),
-          )
-        ]),
-      ),
-    ),
+  runApp(App(
+    authenticationRepository: AuthenticationRepository(),
+    userRepository: UserRepository(),
   ));
+}
+
+/// 初始化
+void initialize() {
+  // 初始化 路由
+  Routes.configRoutes(Application.router);
 }
