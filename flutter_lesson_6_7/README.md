@@ -11,19 +11,19 @@
 
 ### 1. 课程页及学习页需求分析
 
-![GIF 2022-9-19 11-26-30](6CE3441E5B524DF98CF1EFA8868747A3)
+![GIF 2022-9-19 11-26-30](https://note.youdao.com/yws/public/resource/dc091bd7831ccf1b9729cc2bb2c4824b/6CE3441E5B524DF98CF1EFA8868747A3?ynotemdtimestamp=1663590166853)
 
 - 课程页
 
-![课程页](6EB3E451446A4EEEADAA0C2344097FC2)
+![课程页](https://note.youdao.com/yws/public/resource/dc091bd7831ccf1b9729cc2bb2c4824b/6EB3E451446A4EEEADAA0C2344097FC2?ynotemdtimestamp=1663590166853)
 
 - 学习页-最近学习
 
-![学习页](5A4EA9180E4E439CB6A37F47DC641D9C)
+![学习页](https://note.youdao.com/yws/public/resource/dc091bd7831ccf1b9729cc2bb2c4824b/5A4EA9180E4E439CB6A37F47DC641D9C?ynotemdtimestamp=1663590166853)
 
 - 学习页-我的课程
 
-![学习页2](CFEFD734FD0142C68FAC0152736EDA02)
+![学习页2](https://note.youdao.com/yws/public/resource/dc091bd7831ccf1b9729cc2bb2c4824b/CFEFD734FD0142C68FAC0152736EDA02?ynotemdtimestamp=1663590166853)
 
 ### 课程页网络模块封装
 
@@ -150,7 +150,7 @@ class _CourseListPageState extends State<CourseListPage>
 
 2. tabBar使用
 
-![tab组件](8C94C688A8844FA48ACB2B61A7DD7660)
+![tab组件](https://note.youdao.com/yws/public/resource/dc091bd7831ccf1b9729cc2bb2c4824b/8C94C688A8844FA48ACB2B61A7DD7660?ynotemdtimestamp=1663590166853)
 
 
 ```dart
@@ -190,9 +190,9 @@ _tabController = TabController(
     vsync: this);
 ```
 
-3. 自定义复杂控件，以下节选部分代码，详细请看代码仓库courselist_page.dart类的_filterTabs()方法
+1. 自定义复杂控件，以下节选部分代码，详细请看代码仓库courselist_page.dart类的_filterTabs()方法
 
-![filter控件](1BB2BACCE0CB43709662720EDFD98AB6)
+![filter控件](https://note.youdao.com/yws/public/resource/dc091bd7831ccf1b9729cc2bb2c4824b/1BB2BACCE0CB43709662720EDFD98AB6?ynotemdtimestamp=1663590166853)
 
 
 ```dart
@@ -227,7 +227,7 @@ _tabController = TabController(
 
 ```
 
-4. 与页面绑定的bloc组件
+1. 与页面绑定的bloc组件
 
 
 ```dart
