@@ -1,0 +1,13 @@
+{
+    "begin_time": "2019-03-06 00:00:00",
+    "brief": "收获：通过C 语言技能总结，可以让你掌握在Android 平台下C 语言的技能栈，熟\n悉企业常用的开发技巧，比如文件读写、字符操作等。",
+    "cover_url": null,
+    "created_time": "2019-02-14 15:21:38",
+    "end_time": "2019-03-16 00:00:00",
+    "id": 123,
+    "is_open": 0,
+    "lessons": "$[]lesson",
+    "rank": 1,
+    "teacher": "$teacher",
+    "title": "BAT最常用的C技术"
+  }

@@ -1,0 +1,68 @@
+buildscript {
+    ext.kotlin_version = '1.4.32'
+    repositories {
+        google()
+        jcenter()
+        mavenCentral()
+    }
+
+    dependencies {
+        //classpath 'com.android.tools.build:gradle:3.5.0'
+         classpath 'com.android.tools.build:gradle:4.1.0'
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+
+    }
+}
+
+//  添加 flutter_tencentplayer 的配置信息
+// def flutterProjectRoot = rootProject.projectDir.parentFile.toPath()
+// def plugins = new Properties()
+// def pluginsFile = new File(flutterProjectRoot.toFile(), '.flutter-plugins')
+// if (pluginsFile.exists()) {
+//     pluginsFile.withReader('UTF-8') { reader -> plugins.load(reader) }
+// }
+//  end flutter_tencentplayer
+
+
+allprojects {
+    repositories {
+        google()
+        jcenter()
+        mavenCentral()
+
+        // flutter_tencentplayer
+        // flatDir {
+        //     dirs "${plugins.get("flutter_tencentplayer")}android/libs"
+        // }
+    }
+
+    project.ext {
+
+        compileSdkVersion = 29
+        buildToolsVersion = "28.0.3"
+        supportSdkVersion = "26.0.1"
+        minSdkVersion = 23
+        targetSdkVersion = 29
+        versionCode = 1
+        versionName = "v1.0"
+        liteavSdk="com.tencent.liteav:LiteAVSDK_Player:latest.release"
+        // imSdk = 'com.tencent.imsdk:imsdk:4.9.1'
+        // ndkAbi = 'armeabi','armeabi-v7a','arm64-v8a'
+        // aekit_version = '1.0.10-cloud'
+
+        danmaku= 'com.github.ctiao:DanmakuFlameMaster:0.5.3'
+    }
+}
+
+rootProject.buildDir = '../build'
+subprojects {
+    project.buildDir = "${rootProject.buildDir}/${project.name}"
+}
+subprojects {
+    project.evaluationDependsOn(':app')
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
+

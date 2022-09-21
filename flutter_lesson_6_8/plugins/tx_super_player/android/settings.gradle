@@ -1,0 +1,6 @@
+rootProject.name = 'tx_super_player'
+// 独立开发（不是作为插件给其他项目使用）时配置
+include ":superplayerkit"
+project(':superplayerkit').projectDir =file('/Users/Ivan.Wong/work/git_workspace/superplayerkit')
+
+

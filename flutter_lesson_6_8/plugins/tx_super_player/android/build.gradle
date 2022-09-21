@@ -1,0 +1,72 @@
+group 'com.tencent.tx_super_player'
+version '1.0'
+
+buildscript {
+    repositories {
+        google()
+        jcenter()
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath 'com.android.tools.build:gradle:4.1.0'
+    }
+}
+
+//rootProject.allprojects {
+//    repositories {
+//        google()
+//        jcenter()
+//        mavenCentral()
+//    }
+//}
+
+
+allprojects {
+    repositories {
+        google()
+        jcenter()
+        mavenCentral()
+    }
+
+    project.ext {
+
+        compileSdkVersion = 29
+        buildToolsVersion = "28.0.3"
+        supportSdkVersion = "26.0.1"
+        minSdkVersion = 23
+        targetSdkVersion = 29
+        versionCode = 1
+        versionName = "v1.0"
+        liteavSdk="com.tencent.liteav:LiteAVSDK_Player:latest.release"
+        // imSdk = 'com.tencent.imsdk:imsdk:4.9.1'
+        // ndkAbi = 'armeabi','armeabi-v7a','arm64-v8a'
+        // aekit_version = '1.0.10-cloud'
+
+        danmaku= 'com.github.ctiao:DanmakuFlameMaster:0.5.3'
+    }
+}
+
+apply plugin: 'com.android.library'
+
+android {
+    compileSdkVersion 30
+
+    defaultConfig {
+        minSdkVersion 16
+    }
+    // lines skipped
+    dependencies {
+        provided rootProject.findProject(":superplayerkit")
+    }
+}
+
+dependencies{
+
+    compileOnly files("libs/flutter.jar")
+    implementation 'androidx.appcompat:appcompat:1.2.0'
+    implementation project.ext.liteavSdk
+    implementation project.ext.danmaku
+    implementation project(':superplayerkit')
+
+}

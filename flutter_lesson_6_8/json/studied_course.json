@@ -1,0 +1,18 @@
+{
+   "course": "$course",
+   "course_type": 4, 
+   "current_price": 6699.0, 
+   "id": 16,
+   "lessons_count": 0,
+   "lessons_played_time": 0,
+   "comment_count": 0,
+   "original_price": 7000.0, 
+   "progress": 12.0, 
+   "name": "Android资深工程师（NDK/音视频/图像方向）",
+   "img_url": "//img.cniao5.com/05f9f640-4c5a-11e5-a1a6-00163e0230fa.jpg",
+   "get_method": 1, 
+   "left_expiry_days": 113,
+   "cancel_time": "2020-10-13 19:18:32",
+   "product_id": 10139,
+   "product_type": 3
+ }

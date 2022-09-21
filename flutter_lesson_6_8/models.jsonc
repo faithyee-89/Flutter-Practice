@@ -1,0 +1,28 @@
+[
+    {
+      // Generates Freezed classes.
+      // If it's true, everything below will be ignored because Freezed supports them all.
+      "freezed": false,
+      // Enable Json Serializable builder.
+      "serializable": false,
+      // Enable Equatable support.
+      // If it's true, equality operator and immutability will be ignored.
+      "equatable": false,
+      // Generate immutable classes.
+      "immutable": false,
+      // Add toString method to improve the debugging experience.
+      "toString": false,
+      // Add copyWith method (Recommended with immutable classes).
+      "copyWith": false,
+      // Add equality operator.
+      "equality": false,
+      // Indicate that a variable can have the value null.
+      "nullSafety": false,
+      // Default target directory.
+      "targetDirectory": "/lib/models",
+      // Activate as primary global configuration.
+      "primaryConfiguration": false,
+      // Disable ask for confirmation to start the conversion.
+      "fastMode": false
+    }
+  ]

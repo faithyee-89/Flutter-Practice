@@ -1,0 +1,11 @@
+{
+    "status": 1, 
+    "exper_duration": 0, 
+    "is_exper": false, 
+    "is_login": true, 
+    "video_source": 1, 
+    "seek":0, 
+    "is_live":0 , 
+    "tcplayer": "$tcplayer",
+    "urls": "$video_url"
+  }
