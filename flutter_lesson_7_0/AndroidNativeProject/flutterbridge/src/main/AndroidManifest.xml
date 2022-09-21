@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.cainiaowo.flutterbridge">
+    <application>
+    <activity
+        android:name="com.idlefish.flutterboost.containers.FlutterBoostActivity"
+        android:configChanges="orientation|keyboardHidden|keyboard|screenSize|locale|layoutDirection|fontScale|screenLayout|density"
+        android:hardwareAccelerated="true"
+        android:windowSoftInputMode="adjustResize"
+        android:theme="@style/NormalTheme">
+
+        <meta-data
+            android:name="io.flutter.embedding.android.SplashScreenDrawable"
+            android:resource="@drawable/bb_ic_home_say_hello_smile" />
+
+    </activity>
+    </application>
+</manifest>
