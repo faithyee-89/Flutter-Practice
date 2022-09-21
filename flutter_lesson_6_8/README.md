@@ -6,6 +6,7 @@
 > - 课程播放页需求分析
 > - 课程播放页网络模块封装
 > - 课程播放页实现
+> - 补充项目存储方式及Webview的使用
 
 # 课程代码
 
@@ -352,3 +353,323 @@ flutter create --template=plugin --platforms=android,ios -i objc -a java f_tx_sp
   }
 ```
 
+
+### 七、补充项目存储方式及Webview的使用
+
+#### 1. 存储方式
+
+1. 在yaml配置中集成存储插件
+
+
+
+```yaml
+environment:
+  sdk: ">=2.14.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  shared_preferences: ^2.0.11
+```
+
+2. 调用插件：功能实现在之前的健全类里repo类里
+
+storage.dart
+
+```dart
+/// 本地存储
+class StorageUtil {
+  StorageUtil._internal();
+  static final StorageUtil _instance = StorageUtil._internal();
+
+  factory StorageUtil() {
+    return _instance;
+  }
+
+  SharedPreferences? _prefs;
+
+  Future<void> init() async {
+    _prefs = await SharedPreferences.getInstance();
+  }
+
+  Future<bool>? setString(String key, String value, {bool encrypt: false}) {
+    // if (value == null || value == "") return  Future.error(new Error());
+
+    if (encrypt) {
+      value = EncryptUtils.aesEncrypt(value, SECRET_KEY);
+    }
+    return _prefs?.setString(key, value);
+  }
+
+    ...
+}
+
+```
+
+authentication_repository.dart
+
+```dart
+/// uninitialized - 身份验证未初始化；  authenticated - 认证成功；  unauthenticated 认证失败
+enum AuthenticationStatus { uninitialized, authenticated, unauthenticated }
+
+class AuthenticationRepository {
+  User? _user;
+
+  User? getUser() {
+    if (_user == null) {
+      String? json =
+          StorageUtil().getString(STORAGE_LOGIN_USER_KEY, encrypt: true);
+      if (json != null) {
+        Map map = jsonDecode(json);
+        _user = User.fromJson(map as Map<String, dynamic>);
+      }
+    }
+    return _user;
+  }
+
+  String? getToken() {
+    return StorageUtil().getString(STORAGE_LOGIN_TOKEN_KEY, encrypt: true);
+  }
+
+  /// 缓存登录信息（token 和 user）
+  void saveAuthenticationInfo(User user, String token) {
+    String json = jsonEncode(user.toJson());
+    StorageUtil().setString(STORAGE_LOGIN_USER_KEY, json, encrypt: true);
+
+    StorageUtil().setString(STORAGE_LOGIN_TOKEN_KEY, token, encrypt: true);
+
+    Global.loginToken = token;
+  }
+
+  /// 清除登录信息
+  void clearAuthenticationInfo() {
+    StorageUtil().remove(STORAGE_LOGIN_USER_KEY);
+    StorageUtil().remove(STORAGE_LOGIN_TOKEN_KEY);
+  }
+}
+
+```
+
+#### 2. flutter和h5之间的交互
+
+1. yaml配置引用webview
+
+
+```yaml
+dependencies:
+  flutter:
+    sdk: flutter
+
+  webview_flutter: ^2.8.0
+```
+
+2. 集成webview页面
+
+lib\pages\webview\index.dart
+
+```dart
+class _WebViewPage extends State<WebViewPage> {
+  String _pageTitle = "加载中...";
+  late WebViewController _webViewController;
+
+  // H5 端调用Flutter 的方法
+  /// cniaoApp.postMessage(JSON.stringify({method:"方法名",data:{"xxxx":'xxxx'}}));
+  JavascriptChannel jsBridge(BuildContext context) => JavascriptChannel(
+      name: 'cniaoApp', // 与h5 端的一致 不然收不到消息
+      onMessageReceived: (JavascriptMessage message) async {
+        String jsonStr = message.message;
+        JsBridgeUtil.executeMethod(context, JsBridgeUtil.parseJson(jsonStr));
+      });
+
+  @override
+  void initState() {
+    super.initState();
+    if (Platform.isAndroid) {
+      WebView.platform = SurfaceAndroidWebView();
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(appBar: _buildAppbar(), body: _buildBody());
+  }
+
+  _buildAppbar() {
+    return AppBar(
+      elevation: 0,
+      backgroundColor: Colors.white,
+      title: Text(
+        _pageTitle,
+        style: TextStyle(color: Colors.black, fontSize: AppFontSize.normalSp),
+      ),
+      leading: IconButton(
+        icon: Icon(
+          CNWFonts.back,
+          color: AppColors.black,
+          size: 80.w,
+        ),
+        onPressed: () => Navigator.pop(context),
+      ),
+    );
+  }
+
+  _buildBody() {
+    return Column(
+      children: <Widget>[
+        SizedBox(
+          height: 1,
+          width: double.infinity,
+          child: const DecoratedBox(
+              decoration: BoxDecoration(color: Color(0xFFEEEEEE))),
+        ),
+        Expanded(
+          flex: 1,
+          child: WebView(
+            initialUrl: widget.isLocalUrl
+                ? Uri.dataFromString(widget.url,
+                        mimeType: 'text/html',
+                        encoding: Encoding.getByName('utf-8'))
+                    .toString()
+                : widget.url,
+            userAgent: "cniao5App",
+            javascriptMode: JavascriptMode.unrestricted,
+            javascriptChannels: <JavascriptChannel>[jsBridge(context)].toSet(),
+            onWebViewCreated: (WebViewController controller) {
+              _webViewController = controller;
+              if (widget.isLocalUrl) {
+                _loadHtmlAssets(controller);
+              } else {
+                controller.loadUrl(widget.url);
+              }
+            },
+            onPageFinished: (String value) {
+              _webViewController.getTitle().then((title) {
+                setState(() {
+                  this._pageTitle = title ?? "";
+                });
+              });
+
+              /// 如果嵌入的页面是cniao5.com ,则调用h5页面的登录方法
+              _webViewController.currentUrl().then((url) {
+                if (url != null && url.contains("m.cniao5.com")) {
+                  _nativeAppUserLogin();
+                }
+              });
+            },
+          ),
+        )
+      ],
+    );
+  }
+
+  _nativeAppUserLogin() {
+    String? userToken = Global.loginToken;
+    if (userToken != null) {
+      String h5LoginScript = "nativeAppUserLogin('$userToken')";
+      _webViewController.runJavascript(h5LoginScript);
+    }
+  }
+
+//加载本地文件
+  _loadHtmlAssets(WebViewController controller) async {
+    String htmlPath = await rootBundle.loadString(widget.url);
+    controller.loadUrl(Uri.dataFromString(htmlPath,
+            mimeType: 'text/html', encoding: Encoding.getByName('utf-8'))
+        .toString());
+  }
+}
+
+```
+
+3. h5调用flutter方法
+
+lib\pages\webview\index.dart
+
+```dart
+class _WebViewPage extends State<WebViewPage> {
+  String _pageTitle = "加载中...";
+  late WebViewController _webViewController;
+
+  // H5 端调用Flutter 的方法
+  /// cniaoApp.postMessage(JSON.stringify({method:"方法名",data:{"xxxx":'xxxx'}}));
+  JavascriptChannel jsBridge(BuildContext context) => JavascriptChannel(
+      name: 'cniaoApp', // 与h5 端的一致 不然收不到消息
+      onMessageReceived: (JavascriptMessage message) async {
+        String jsonStr = message.message;
+        JsBridgeUtil.executeMethod(context, JsBridgeUtil.parseJson(jsonStr));
+      });
+```
+
+lib\pages\webview\js_bridge_util.dart
+
+```dart
+class JsBridgeUtil {
+  /// 将json字符串转化成对象
+  static JsBridge parseJson(String jsonStr) {
+    JsBridge jsBridgeModel = JsBridge.fromMap(jsonDecode(jsonStr));
+    return jsBridgeModel;
+  }
+
+  /// 向H5开发接口调用
+  static executeMethod(BuildContext context, JsBridge jsBridge) async {
+    if (jsBridge.method == 'getAppToken') {
+      jsBridge.success.call();
+    }
+  }
+}
+
+```
+
+4. flutter数据及登录态同步到webview中
+
+lib\pages\webview\index.dart
+
+```dart
+Expanded(
+          flex: 1,
+          child: WebView(
+            initialUrl: widget.isLocalUrl
+                ? Uri.dataFromString(widget.url,
+                        mimeType: 'text/html',
+                        encoding: Encoding.getByName('utf-8'))
+                    .toString()
+                : widget.url,
+            userAgent: "cniao5App",
+            javascriptMode: JavascriptMode.unrestricted,
+            javascriptChannels: <JavascriptChannel>[jsBridge(context)].toSet(),
+            onWebViewCreated: (WebViewController controller) {
+              _webViewController = controller;
+              if (widget.isLocalUrl) {
+                _loadHtmlAssets(controller);
+              } else {
+                controller.loadUrl(widget.url);
+              }
+            },
+            onPageFinished: (String value) {
+              _webViewController.getTitle().then((title) {
+                setState(() {
+                  this._pageTitle = title ?? "";
+                });
+              });
+
+              /// 如果嵌入的页面是cniao5.com ,则调用h5页面的登录方法
+              _webViewController.currentUrl().then((url) {
+                if (url != null && url.contains("m.cniao5.com")) {
+                  _nativeAppUserLogin();
+                }
+              });
+            },
+          ),
+```
+
+
+```dart
+  _nativeAppUserLogin() {
+    String? userToken = Global.loginToken;
+    if (userToken != null) {
+      String h5LoginScript = "nativeAppUserLogin('$userToken')";
+      _webViewController.runJavascript(h5LoginScript);
+    }
+  }
+```
