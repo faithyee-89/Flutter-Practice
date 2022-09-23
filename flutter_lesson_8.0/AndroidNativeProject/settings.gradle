@@ -1,0 +1,10 @@
+rootProject.name = "AndroidNativeProject"
+include ':app'
+setBinding(new Binding([gradle: this]))                                // new
+evaluate(new File(                                                     // new
+        '/Users/houzirui/Documents/cainiaowo',                                              // new
+        './flutterproject/.android/include_flutter.groovy'
+))
+include ':flutterproject'
+project(':flutterproject').projectDir = new File('../flutterproject')
+include ':flutterbridge'
