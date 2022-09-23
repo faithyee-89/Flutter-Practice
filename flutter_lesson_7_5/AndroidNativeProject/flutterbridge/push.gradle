@@ -1,0 +1,43 @@
+//支持将项目发布到maven仓库的插件
+apply plugin: 'maven'
+//支持对库文件数字签名的插件，可以通过签名知道文件的创建者，创建时间等信息
+apply plugin: 'signing'
+apply plugin: 'maven-publish'
+group = '组的名字'
+version = '0.0.1-SNAPSHOT'
+description = """Flutter-Native Bridge"""
+publishing {
+    publications {
+        println('进入publications')
+        maven(MavenPublication) {
+            artifact "${project.buildDir}/outputs/aar/flutter-${version}.aar"
+            artifactId 'flutter-release'
+            pom.withXml {
+                def dependenciesNode = asNode().appendNode('dependencies')
+                //build.gradle里有api的依赖配置到pom里
+                configurations.api.allDependencies.each {
+                    if (it.group) {
+                        def dependencyNode = dependenciesNode.appendNode('dependency')
+                        dependencyNode.appendNode('groupId', it.group)
+                        dependencyNode.appendNode('artifactId', it.name)
+                        dependencyNode.appendNode('version', it.version)
+                    }
+                }
+            }
+        }
+    }
+}
+publishing {
+    if (version.endsWith("-SNAPSHOT")) {
+        repositories {
+            maven {
+                url "http://上传地址"
+                credentials {
+                    username = "用户名"
+                    password = "密码"
+                }
+            }
+        }
+    }
+}
+
