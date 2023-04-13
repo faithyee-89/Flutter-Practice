@@ -198,9 +198,7 @@ class LoginPage extends StatelessWidget {
   }
 
   void _onLoginButtonTap() {
-  print(phone.text);
-  print(password.text);
+    print(phone.text);
+    print(password.text);
+  }
 }
-}
-
-
