@@ -26,48 +26,6 @@ class NewsPage extends StatelessWidget {
     );
   }
 
-  Widget _listView(List list) {
-    return ListView.separated(
-        // .. 联结操作符
-        controller: scrollController..addListener(() {
-          print(scrollController.offset);
-          // 滑到最底部时代码操作回到listview头部
-          if (scrollController.offset > 264) {
-            scrollController.animateTo(0, duration: Duration(seconds: 2), curve: Curves.ease);
-          }
-        }),
-        separatorBuilder: (BuildContext context, int index) {
-          return Divider();
-        },
-        itemCount: list.length,
-        itemBuilder: ((context, index) {
-          return ListTile(
-            onTap: (){
-              Navigator.push(context, MaterialPageRoute(builder: (context) {
-                return NewsDetailPage(url: list[index]['url']); 
-              }));
-            },
-            leading: SizedBox(
-              width: 80,
-              child: Image.network(
-                list[index]['pic'],
-                fit: BoxFit.cover,
-              ),
-            ),
-            title: Text(
-              list[index]['title'],
-              maxLines: 2,
-            ),
-            subtitle: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(list[index]['src']),
-                  Text(list[index]['time']),
-                ]),
-          );
-        }));
-  }
-
   Widget _loadData(BuildContext context) {
     return FutureBuilder(
         future: DefaultAssetBundle.of(context).loadString('lib/data.json'),
@@ -93,5 +51,49 @@ class NewsPage extends StatelessWidget {
         onRefresh: () {
           return Future.delayed(Duration(seconds: 2));
         });
+  }
+
+  Widget _listView(List list) {
+    return ListView.separated(
+        // .. 级联操作符
+        controller: scrollController
+          ..addListener(() {
+            print(scrollController.offset);
+            // 滑到最底部时代码操作回到listview头部
+            if (scrollController.offset > 153) {
+              scrollController.animateTo(0,
+                  duration: Duration(seconds: 2), curve: Curves.ease);
+            }
+          }),
+        separatorBuilder: (BuildContext context, int index) {
+          return Divider();
+        },
+        itemCount: list.length,
+        itemBuilder: ((context, index) {
+          return ListTile(
+            onTap: () {
+              Navigator.push(context, MaterialPageRoute(builder: (context) {
+                return NewsDetailPage(url: list[index]['url']);
+              }));
+            },
+            leading: SizedBox(
+              width: 80,
+              child: Image.network(
+                list[index]['pic'],
+                fit: BoxFit.cover,
+              ),
+            ),
+            title: Text(
+              list[index]['title'],
+              maxLines: 2,
+            ),
+            subtitle: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(list[index]['src']),
+                  Text(list[index]['time']),
+                ]),
+          );
+        }));
   }
 }
