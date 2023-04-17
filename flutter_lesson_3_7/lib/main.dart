@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:js';
 
 import 'package:flutter/material.dart';
 
@@ -42,6 +43,26 @@ class NewsPage extends StatelessWidget {
     );
   }
 
+  Widget _loadData(BuildContext context) {
+    return FutureBuilder(
+        //异步加载本地json文件
+        future: DefaultAssetBundle.of(context).loadString('lib/data.json'),
+        builder:
+            (BuildContext buildContext, AsyncSnapshot<String> asyncSnapshot) {
+          // asyncSnapshot是异步获取到json文件的内容变量
+          if (asyncSnapshot.connectionState.name != 'done') {
+            return Center(
+              child: Text('加载中'),
+            );
+          }
+
+          Map data = json.decode(asyncSnapshot.data.toString());
+          // 获取的方式取决于json里的内容
+          List _newsDataList = data['result']['result']['list'];
+          return _listView(_newsDataList);
+        });
+  }
+
   Widget _listView(List list) {
     return ListView.separated(
         separatorBuilder: (BuildContext context, int index) {
@@ -69,24 +90,5 @@ class NewsPage extends StatelessWidget {
                 ]),
           );
         }));
-  }
-
-  Widget _loadData(BuildContext context) {
-    return FutureBuilder(
-        future: DefaultAssetBundle.of(context).loadString('lib/data.json'),
-        builder:
-            (BuildContext buildContext, AsyncSnapshot<String> asyncSnapshot) {
-          // asyncSnapshot是异步获取到json文件的内容变量
-          if (asyncSnapshot.connectionState.name != 'done') {
-            return Center(
-              child: Text('加载中'),
-            );
-          }
-
-          Map data = json.decode(asyncSnapshot.data.toString());
-          // 获取的方式取决于json里的内容
-          List _newsDataList = data['result']['result']['list'];
-          return _listView(_newsDataList);
-        });
   }
 }
