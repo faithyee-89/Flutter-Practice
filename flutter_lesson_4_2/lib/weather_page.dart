@@ -57,6 +57,7 @@ class _WeatherPageState extends State<WeatherPage> {
     return Scaffold(
       body: Stack(
         children: [
+          //背景图片
           Image.network(
             'http://5b0988e595225.cdn.sohucs.com/images/20190927/4f20b1e1d2834e3b9b59ce4d5ca148e1.jpeg',
             width: double.infinity,

@@ -24,6 +24,7 @@ class _WechatMessagePageState extends State<WechatMessagePage> {
         .loadString('lib/wechat_message_page/we_chat_data.json');
 
     final jsonResult = json.decode(jsonData);
+
     /**
      * StatefulWidget的特性
      */
@@ -122,7 +123,7 @@ class _WechatMessagePageState extends State<WechatMessagePage> {
         physics: NeverScrollableScrollPhysics(), //禁用滑动事件
         shrinkWrap: true,
         itemBuilder: (BuildContext, int index) {
-          return UserListItem( userData: _weChatUserModel!.data![index]);
+          return UserListItem(userData: _weChatUserModel!.data![index]);
         },
         separatorBuilder: (BuildContext, int) {
           return Divider();
