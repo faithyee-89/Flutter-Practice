@@ -1,9 +1,9 @@
 import 'dart:async';
 
+// ignore: depend_on_referenced_packages
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:formz/formz.dart';
-import 'package:meta/meta.dart';
 
 import '../../authentication/authentication_repository/authentication_repository.dart';
 import '../models/password.dart';
@@ -43,7 +43,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     final username = Username.dirty(event.username);
     return state.copyWith(
       username: username,
-      status: Formz.validate([state.password, username]),
+      status: state.username,
     );
   }
 
@@ -54,7 +54,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     final password = Password.dirty(event.password);
     return state.copyWith(
       password: password,
-      status: Formz.validate([password, state.username]),
+      status: state.username,
     );
   }
 
@@ -64,23 +64,23 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   ) async* {
     _authenticationRepository.logOut();
     yield state.copyWith(
-        password: null, username: null, status: FormzStatus.invalid);
+        password: null, username: null, status: state.username);
   }
 
   Stream<LoginState> _mapLoginSubmittedToState(
     LoginSubmitted event,
     LoginState state,
   ) async* {
-    if (state.status.isValidated) {
-      yield state.copyWith(status: FormzStatus.submissionInProgress);
+    if (state.status.isNotValid) {
+      yield state.copyWith(status: state.username);
       try {
         await _authenticationRepository.logIn(
           username: state.username.value,
           password: state.password.value,
         );
-        yield state.copyWith(status: FormzStatus.submissionSuccess);
+        yield state.copyWith(status: state.username);
       } on Exception catch (_) {
-        yield state.copyWith(status: FormzStatus.submissionFailure);
+        yield state.copyWith(status: state.username);
       }
     }
   }

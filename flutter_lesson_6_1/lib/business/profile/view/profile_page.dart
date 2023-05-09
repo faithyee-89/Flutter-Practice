@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -197,27 +196,30 @@ class ProfilePage extends StatelessWidget {
   }
 
   Widget _logoutBtn(BuildContext context) {
-    return SliverToBoxAdapter(child: BlocBuilder<AuthenticationBloc, AuthenticationState>(
+    return SliverToBoxAdapter(
+        child: BlocBuilder<AuthenticationBloc, AuthenticationState>(
       builder: (context, state) {
-        return state.status != AuthenticationStatus.authenticated ? Container() : Padding(
-          padding: const EdgeInsets.only(left: 13, top: 50, right: 13),
-          child: FlatButton(
-            onPressed: () {
-              // 退出登陆
-              context
-                  .read<AuthenticationBloc>()
-                  .add(AuthenticationLogoutRequested());
-            },
-            child: Text("退出登陆",
-                style: TextStyle(
-                  fontSize: 15,
-                  color: Color(0xff303133),
-                )),
-            color: Color(0x33999999),
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.all(Radius.circular(20))),
-          ),
-        );
+        return state.status != AuthenticationStatus.authenticated
+            ? Container()
+            : Padding(
+                padding: const EdgeInsets.only(left: 13, top: 50, right: 13),
+                child: TextButton(
+                  onPressed: () {
+                    // 退出登陆
+                    context
+                        .read<AuthenticationBloc>()
+                        .add(AuthenticationLogoutRequested());
+                  },
+                  child: Text("退出登陆",
+                      style: TextStyle(
+                        fontSize: 15,
+                        color: Color(0xff303133),
+                      )),
+                  // color: Color(0x33999999),
+                  // shape: RoundedRectangleBorder(
+                  //     borderRadius: BorderRadius.all(Radius.circular(20))),
+                ),
+              );
       },
     ));
   }

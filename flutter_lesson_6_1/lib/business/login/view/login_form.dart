@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:formz/formz.dart';
 
 import '../bloc/login_bloc.dart';
 
@@ -9,12 +8,8 @@ class LoginForm extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocListener<LoginBloc, LoginState>(
       listener: (context, state) {
-        if (state.status.isSubmissionFailure) {
-          Scaffold.of(context)
-            ..hideCurrentSnackBar()
-            ..showSnackBar(
-              const SnackBar(content: Text('Authentication Failure')),
-            );
+        if (state.status.isNotValid) {
+          Scaffold.of(context);
         }
       },
       child: Align(
@@ -47,7 +42,7 @@ class _UsernameInput extends StatelessWidget {
               context.read<LoginBloc>().add(LoginUsernameChanged(username)),
           decoration: InputDecoration(
             labelText: '手机号',
-            errorText: state.username.invalid ? 'invalid username' : null,
+            errorText: state.username.isNotValid ? 'invalid username' : null,
           ),
         );
       },
@@ -68,7 +63,7 @@ class _PasswordInput extends StatelessWidget {
           obscureText: true,
           decoration: InputDecoration(
             labelText: '密码',
-            errorText: state.password.invalid ? 'invalid password' : null,
+            errorText: state.password.isNotValid ? 'invalid password' : null,
           ),
         );
       },
@@ -82,27 +77,25 @@ class _LoginButton extends StatelessWidget {
     return BlocBuilder<LoginBloc, LoginState>(
       buildWhen: (previous, current) => previous.status != current.status,
       builder: (context, state) {
-        return state.status.isSubmissionInProgress
+        return state.status.isNotValid
             ? const CircularProgressIndicator()
             : Container(
                 height: 50,
                 margin: const EdgeInsets.only(top: 20),
                 child: ButtonTheme(
                   minWidth: double.infinity,
-                                  child: RaisedButton(
+                  child: TextButton(
                     key: const Key('loginForm_continue_raisedButton'),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(25),
-                    ),
-                    color: Color(0xfffc9900),
                     child: const Text('登  录',
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: 19,
                         )),
-                    onPressed: state.status.isValidated
+                    onPressed: state.status.isNotValid
                         ? () {
-                            context.read<LoginBloc>().add(const LoginSubmitted());
+                            context
+                                .read<LoginBloc>()
+                                .add(const LoginSubmitted());
                           }
                         : null,
                   ),
